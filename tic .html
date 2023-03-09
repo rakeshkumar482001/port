@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<center>
+
+    <head>
+        <style type="text/css">
+            h1 {
+                font-size: 90px;
+                font-family: Georgia, 'Times New Roman', Times, serif;
+                color: blue;
+            }
+            
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: grey;
+            }
+            
+            li {
+                float: right;
+            }
+            
+            li a {
+                display: block;
+                color: whitesmoke;
+                text-align: right;
+                padding: 20px 15px;
+                text-decoration: none;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                font-size: xx-large;
+            }
+            
+            li a:hover:not(.active) {
+                background-color: blue;
+            }
+            
+            .active {
+                background-color: pink;
+            }
+            
+            .board {
+                height: 300px;
+                width: 300px;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+            }
+            
+            .cell {
+                border-bottom: 5px solid black;
+                border-right: 5px solid black;
+                font-size: 50px;
+                text-align: center;
+                line-height: 95px;
+                cursor: pointer;
+                user-select: none;
+            }
+            
+            .cell:nth-child(3n) {
+                border-right: none;
+            }
+            
+            .cell:nth-child(n+7) {
+                border-bottom: none;
+            }
+            
+            .cell.highlight {
+                background-color: green;
+            }
+        </style>
+        <h1>game tic tac
+        </h1>>
+        <ul>
+            <li>
+                <a href="tic .html">game</a>
+            </li>
+            <li><a href="skills .html">skills</a></li>
+
+            <li>
+                <a href="education info .html">education</a>
+                <li><a href="index.html">Home</a></li>
+            </li>
+        </ul>
+
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+
+
+    </head>
+
+
+    <body style=" background: rgb(63,94,251);
+    background: radial-gradient(circle, rgba(63, 94, 251, 1) 0%, rgba(255, 222, 0, 1) 100%);
+               ">
+
+        <div class="board">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+        <script>
+            let cells = document.querySelectorAll('.cell')
+            cells = Array.from(cells)
+
+            let currentPlayer = "0"
+
+            let winningCombinations = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ]
+
+            function checkForWinner() {
+                winningCombinations.forEach(function(combination) {
+                    let check = combination.every(idx => cells[idx].innerText.trim() == currentPlayer)
+                    if (check) {
+                        highlightCells(combination)
+                    }
+                })
+            }
+
+            function highlightCells(combination) {
+                combination.forEach(function(idx) {
+                    cells[idx].classList.add("highlight")
+                })
+            }
+
+            cells.forEach(function(cell) {
+                cell.addEventListener('click', function() {
+                    if (cell.innerText.trim() != "") return
+                    cell.innerText = currentPlayer
+                    checkForWinner()
+                    currentPlayer = currentPlayer == "1" ? "0" : "1"
+                })
+            })
+        </script>
+    </body>
+</center>
+
+</html>
